@@ -90,7 +90,6 @@ iOSInjectionProject/
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-*.dll
 *.so
 *.so.*
 *.dylib
@@ -144,7 +143,6 @@ dkms.conf
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
