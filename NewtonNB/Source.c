@@ -32,18 +32,29 @@ int main()
     TransposeMatrix(tempFunction, function, 5, 5);
     double result;
     ComputeValue(&result, tempFunction, x, 5, 5);
+    printf("%f\n", result);
+    double *derivative = malloc(sizeof(double) * 5 * 5);
+    Derivative(derivative, tempFunction, 1, 5, 5);
+    ComputeValue(&result, derivative, x, 5, 5);
     printf("%f", result);
     free(out);
     free(tempFunction);
+    free(derivative);
     TerminateMatrixLibrary();
 }
 
+// main x index stands for the variable you wanna derivate on, for example
+// when you wanna derivate on the second variable you set mainxindex to 2
+// or you can think of 2 as the index of the second variable in your function matrix,'cause 0 is the index of the coefficients, whatever
 void Derivative(double *output, double *input, int mainxindex, int rows, int cols)
 {
-    mxArray *matrix = mxCreateDoubleMatrix(rows, cols, 0);
+    mxArray *matrix1 = mxCreateDoubleMatrix(rows, cols, 0);
+    mxArray *matrix2 = mxCreateDoubleMatrix(1, 1, 0);
     mxArray *result = mxCreateDoubleMatrix(rows, cols, 0);
-    mxSetDoubles(matrix, input);
-    mlfDerivative(1, &result, matrix, mainxindex);
+    double temp = mainxindex;
+    mxSetDoubles(matrix1, input);
+    mxSetDoubles(matrix2, &temp);
+    mlfDerivative(1, &result, matrix1, matrix2);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
 }
 
@@ -117,11 +128,11 @@ void InitializeMatrixLibrary()
         return;
     if (!mclInitializeApplication(NULL, 0)) {
         fprintf(stderr, "Could not initialize the application.\n");
-        return -1;
+        return;
     }
     if (!MatrixInitialize()) {
         fprintf(stderr, "Could not initialize the library.\n");
-        return -1;
+        return;
     }
     isInitialized = 1;
 }
