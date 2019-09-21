@@ -24,3 +24,41 @@ The programs calls **MATLAB runtime** to perform high-precision matrix manipulat
 
 8. Press `F5`(or `Ctrl+F5`) and enjoy
 
+## Example
+
+#### Input:
+
+```
+2
+4
+1 5 6 -14.696
+2 1 3 0
+0 0 0 0
+5
+3 -6 4 -7 -14.4056
+0 1 2 1 0
+2 0 2 1 0
+1 2
+```
+
+#### Output
+
+```
+1.1 2.2
+```
+
+## I'M SORRY
+
+OK, I'M GIVING UP.
+
+WHEN I CALL MXDESTROYARRAY, THR PROGRAM CRASHES.
+
+AND WHEN INITIALIZING, THE PROGRAM THROWS A LOT.
+
+I DON'T THINK I'LL EVER FIGURE OUT WHY.
+
+MATLAB ISN'T OPEN SOURCE AFTER ALL.
+
+\*\*\*\*\*\*\*\*
+
+I'M SO HARD. I WAS A MATH PROBLEM.

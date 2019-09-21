@@ -2,9 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source.c" />
-    <ClCompile Include="solve.c" />
+    <ClCompile Include="Solve.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="solve.h" />
+    <ClInclude Include="Solve.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="NewtonNB.h" />
   </ItemGroup>
 </Project>

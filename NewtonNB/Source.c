@@ -57,9 +57,13 @@ void Derivative(double *output, double *input, int mainxindex, int rows, int col
     mxSetDoubles(matrix2, &temp);
     mlfDerivative(1, &result, matrix1, matrix2);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
-    mxDestroyArray(matrix1);
-    mxDestroyArray(matrix2);
-    mxDestroyArray(result);
+    // OK I'M SORRY. I GIVE UP. I CAN'T COMBINE MATLAB AND C IN ONE SINGLE DAY
+    // THAT'S ******.
+    // WHEN I CALL MXDESTROYARRAY, THE PROGRAM CRASHES.
+    // AND I DON'T TNINK I CAN EVER FIGURE OUT WHY. ****IT
+    // mxDestroyArray(matrix1);
+    // mxDestroyArray(matrix2);
+    // mxDestroyArray(result);
 }
 
 void ComputeValue(double *value, double *function, double *x, int rows, int cols)
@@ -71,9 +75,9 @@ void ComputeValue(double *value, double *function, double *x, int rows, int cols
     mxSetDoubles(matrix2, x);
     mlfComputeValue(1, &result, matrix1, matrix2);
     memcpy(value, mxGetDoubles(result), sizeof(double));
-    mxDestroyArray(matrix1);
-    mxDestroyArray(matrix2);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix1);
+    // mxDestroyArray(matrix2);
+    // mxDestroyArray(result);
 }
 
 // Those functions are quite self-explainary, so I didn't write any comment in NewtonNB.h
@@ -87,9 +91,9 @@ void MultiplyMatrix(double *output, double *input1, double *input2, int rows1, i
     mxSetDoubles(matrix2, input2);
     mlfMultiply(1, &result, matrix1, matrix2);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows1 * cols2);
-    mxDestroyArray(matrix1);
-    mxDestroyArray(matrix2);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix1);
+    // mxDestroyArray(matrix2);
+    // mxDestroyArray(result);
 }
 
 void AddMatrix(double *output, double *input1, double *input2, int rows, int cols)
@@ -101,9 +105,9 @@ void AddMatrix(double *output, double *input1, double *input2, int rows, int col
     mxSetDoubles(matrix2, input2);
     mlfAdd(1, &result, matrix1, matrix2);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
-    mxDestroyArray(matrix1);
-    mxDestroyArray(matrix2);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix1);
+    // mxDestroyArray(matrix2);
+    // mxDestroyArray(result);
 }
 // Substract input2 from input1
 void SubstractMatrix(double *output, double *input1, double *input2, int rows, int cols)
@@ -115,9 +119,9 @@ void SubstractMatrix(double *output, double *input1, double *input2, int rows, i
     mxSetDoubles(matrix2, input2);
     mlfSubstract(1, &result, matrix1, matrix2);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
-    mxDestroyArray(matrix1);
-    mxDestroyArray(matrix2);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix1);
+    // mxDestroyArray(matrix2);
+    // mxDestroyArray(result);
 }
 
 void InverseMatrix(double *output, double *input, int rows, int cols)
@@ -127,8 +131,8 @@ void InverseMatrix(double *output, double *input, int rows, int cols)
     mxSetDoubles(matrix, input);
     mlfInverse(1, &result, matrix);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
-    mxDestroyArray(matrix);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix);
+    // mxDestroyArray(result);
 }
 
 void TransposeMatrix(double *output, double *input, int rows, int cols)
@@ -138,18 +142,14 @@ void TransposeMatrix(double *output, double *input, int rows, int cols)
     mxSetDoubles(matrix, input);
     mlfTranspose(1, &result, matrix);
     memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
-    mxDestroyArray(matrix);
-    mxDestroyArray(result);
+    // mxDestroyArray(matrix);
+    // mxDestroyArray(result);
 }
 
 void InitializeMatrixLibrary()
 {
     if (isInitialized)
         return;
-    if (!mclInitializeApplication(NULL, 0)) {
-        fprintf(stderr, "Could not initialize the application.\n");
-        return;
-    }
     if (!MatrixInitialize()) {
         fprintf(stderr, "Could not initialize the library.\n");
         return;
