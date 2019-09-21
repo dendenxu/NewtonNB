@@ -26,8 +26,36 @@ int main()
     for (int i = 0; i < 16; i++) {
         printf("%f\n", out[i]);
     }
-
+    double function[5][5] = {{5, -6, 1, 1, 1}, {3, 2, 1, 0, 0}, {2, 0, 3, 1, 0}, {3, 1, 1, 0, 1}, {2, 0, 0, 3, 2}};
+    double x[4] = {1, 2, 3, 4};
+    double *tempFunction = malloc(sizeof(double) * 5 * 5);
+    TransposeMatrix(tempFunction, function, 5, 5);
+    double result;
+    ComputeValue(&result, tempFunction, x, 5, 5);
+    printf("%f", result);
+    free(out);
+    free(tempFunction);
     TerminateMatrixLibrary();
+}
+
+void Derivative(double *output, double *input, int mainxindex, int rows, int cols)
+{
+    mxArray *matrix = mxCreateDoubleMatrix(rows, cols, 0);
+    mxArray *result = mxCreateDoubleMatrix(rows, cols, 0);
+    mxSetDoubles(matrix, input);
+    mlfDerivative(1, &result, matrix, mainxindex);
+    memcpy(output, mxGetDoubles(result), sizeof(double) * rows * cols);
+}
+
+void ComputeValue(double *value, double *function, double *x, int rows, int cols)
+{
+    mxArray *matrix1 = mxCreateDoubleMatrix(rows, cols, 0);
+    mxArray *matrix2 = mxCreateDoubleMatrix(rows - 1, 1, 0);
+    mxArray *result = mxCreateDoubleMatrix(1, 1, 0);
+    mxSetDoubles(matrix1, function);
+    mxSetDoubles(matrix2, x);
+    mlfComputeValue(1, &result, matrix1, matrix2);
+    memcpy(value, mxGetDoubles(result), sizeof(double));
 }
 
 // Those functions are quite self-explainary, so I didn't write any comment in NewtonNB.h
