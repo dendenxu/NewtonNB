@@ -9,25 +9,32 @@ int main(void)
 	InitializeMatrixLibrary();
 	int cnt;
 	double *ans;
-	Formula *set = Read(&cnt, &ans);
+	Formula *set;
+    while(1){
+        set = Read(&cnt, &ans);
 
-	int i, j;
-	for (i = 0; i < cnt; i++)
-	{
-		for(j = 0 ; j < (cnt + 1) * set[i].terms; j++)
-			printf("%.1lf ",set[i].function[j]);
-		puts("");
-	}
+	    //for (int i = 0; i < cnt; i++)
+	    //{
+		   // for(int j = 0 ; j < (cnt + 1) * set[i].terms; j++)
+			  //  printf("%.1lf ",set[i].function[j]);
+		   // puts("");
+	    //}
 	/*Read the equation set, store them clone first*/
 
-	printf("%d\n", Newton(&ans, set, cnt, 1E-3));
-//	system("pause");
-//
-	for (i = 0; i < cnt; i++)
+	    printf("%d\n", Newton(&ans, set, cnt, 1E-3));
+        for (int i = 0; i < cnt; i++)
+	    {
+		    printf("%.10lf ", ans[i]);
+	    }
+        puts("");
+    }
+    for (int i = 0; i < cnt; i++)
 	{
-		printf("%.2lf ", ans[i]);
 		free(set[i].function);
 	}
+//	system("pause");
+//
+
 	free(ans);
 	free(set);
 	TerminateMatrixLibrary();
